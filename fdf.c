@@ -6,7 +6,7 @@
 /*   By: hbombur <hbombur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 14:18:26 by hbombur           #+#    #+#             */
-/*   Updated: 2022/04/07 14:35:42 by hbombur          ###   ########.fr       */
+/*   Updated: 2022/04/08 13:52:43 by hbombur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,8 @@
 
 int	main(int argc, char **argv)
 {
-	ft_printf(argv[1]);
+	fdf	*data;
+	
+	data = (fdf*)malloc(sizeof(fdf));
+	read_file(data);
 }

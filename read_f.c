@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   read_F.C                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbombur <hbombur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/07 14:01:39 by hbombur           #+#    #+#             */
-/*   Updated: 2022/04/08 13:59:17 by hbombur          ###   ########.fr       */
+/*   Created: 2022/04/08 13:50:12 by hbombur           #+#    #+#             */
+/*   Updated: 2022/04/08 14:16:34 by hbombur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "fdf.h"
 
-# include "./minilibft/ft_printf/libftprintf.a"
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-
-typedef struct s_struct
+int	get_height(char *file_name)
 {
-	int		width;
+	char	*line;
+	int		fd;
 	int		height;
-	int		**z_matrix;
+	
+	fd = open(file_name, O_RDONLY, 0);
+	height = 0;
+	while(line)
+	{
+		
+		height++;
+	}
+	
+}
 
-	void	*mlx_ptr;
-	void	*win_ptr
-}	fdf
-
-#endif
+int	read_file(fdf *data)
+{
+	data->height = get_height(file_name);
+}
