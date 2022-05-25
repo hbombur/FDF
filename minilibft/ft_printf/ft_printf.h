@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbombur <hbombur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/07 14:18:26 by hbombur           #+#    #+#             */
-/*   Updated: 2022/05/25 21:02:11 by hbombur          ###   ########.fr       */
+/*   Created: 2022/01/10 15:04:24 by hbombur           #+#    #+#             */
+/*   Updated: 2022/01/12 21:22:00 by hbombur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-int	main(int argc, char **argv)
-{
-	// fdf	*data;
-	
-	// data = (fdf*)malloc(sizeof(fdf));
-	read_file(argv[1]);
-	return (0);
-}
+# include <stdarg.h>
+# include <unistd.h>
+# include <limits.h>
+# include <stdio.h>
+
+int	ft_printf(const char *str, ...);
+int	ft_putchar(int c);
+int	ft_putstr(char *s);
+int	ft_putnbr_base(unsigned long long n, int i, char *str);
+int	ft_putnbr(int n);
+
+#endif
