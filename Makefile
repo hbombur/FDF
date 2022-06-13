@@ -1,32 +1,32 @@
 NAME = fdf
 
-SRC =	fdf.c
+SRC =	fdf.c read_file.c utils.c ft_split.c get_next_line.c get_next_line_utils.c
 
 OBJ = $(patsubst %.c, %.o, $(SRC))
 
-FTPRINTF = ./minilibft/ft_printf/
-
-LIBFT = ./lib_ft/
+MLX = ./minilibx_macos/
 
 HEADER = fdf.h
 
-FLAGS	= -Wall -Wextra -Werror -I
+FLAGS	= -Wall -Wextra -Werror #-I
 
 .PHONY : all clean fclean re
 
 %.o : %.c $(HEADER)
-	$(CC) $(FLAGS) $(HEADER) -c $< -o $@
+	$(CC) $(FLAGS) -c $< -o $@
+# -Imlx 
 
-all : libft $(NAME)
+all : $(NAME)
 	@echo "\033[32m\033[40m\033[1m[FDF Compiled]"
 
-libft :
-	make -C $(LIBFT)
+# mlx : 
+# 	make -C $(MLX)
 
+# $(NAME): $(OBJ)
+# 	$(CC) $(OBJ) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
-
-#$(NAME) : $(OBJ) $(HEADER)
-#	ar rcs $(NAME) $(FTPRINTF) $(OBJ)$?
+$(NAME) : $(OBJ)
+	$(CC) $(OBJ) -o $(NAME)
 
 clean :
 	@rm -f $(OBJ)
