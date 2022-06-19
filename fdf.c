@@ -6,12 +6,12 @@
 /*   By: hbombur <hbombur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 14:18:26 by hbombur           #+#    #+#             */
-/*   Updated: 2022/06/13 18:16:18 by hbombur          ###   ########.fr       */
+/*   Updated: 2022/06/19 18:08:50 by hbombur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-// #include "mlx.h"
+
 
 void	ft_perror(char *str)
 {
@@ -32,6 +32,8 @@ int	main(int argc, char **argv)
 		if (!data)
 			ft_perror("Memory not allocated");
 		read_file(argv[1], data);
+		init_windows(data);
+		init_win(data);
 		y = 0;
 		while (y != data->height)
 		{
@@ -44,6 +46,7 @@ int	main(int argc, char **argv)
 			y++;
 			printf("\n");
 		}
+		mlx_loop(data->mlx_ptr);
 	}
 	return (0);
 }

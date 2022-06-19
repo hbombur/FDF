@@ -6,7 +6,7 @@
 /*   By: hbombur <hbombur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 14:01:39 by hbombur           #+#    #+#             */
-/*   Updated: 2022/06/13 18:20:45 by hbombur          ###   ########.fr       */
+/*   Updated: 2022/06/19 17:28:43 by hbombur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,14 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <limits.h>
-# include "./minilibx_macos/mlx.h"
+// # include "./minilibx_macos/mlx.h"
+# include "mlx.h"
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
+# define HEIGHT			1080
+# define WIDTH			1920
+
 
 typedef struct s_coor
 {
@@ -34,14 +38,28 @@ typedef struct s_coor
 typedef struct s_struct
 {
 	int		width;
+	
 	int		height;
 	int		**matrix;
-
+	int		screen_x;
+	int		screen_y;
+	int		zoom;
+	int		scale;
+	int		shift_y;
+	int		shift_x;
+	int		center_x;
+	int		center_y;
+	void	*img;
 	void	*mlx_ptr;
 	void	*win_ptr;
 }			fdf;
 
+void	init_windows(fdf *data);
+void    init_win(fdf *data);
 int		read_file(char *file_name, fdf *data);
+int		found_center_x(fdf *data);
+int		found_center_y(fdf *data);
+void	found_center(fdf *data);
 int		get_params(fdf *data, char *file_name);
 void	ft_perror(char *str);
 void	make_line_matrix(fdf *data, char **map_line, int y);
