@@ -6,7 +6,7 @@
 /*   By: hbombur <hbombur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:24:47 by hbombur           #+#    #+#             */
-/*   Updated: 2022/06/29 20:08:02 by hbombur          ###   ########.fr       */
+/*   Updated: 2022/06/29 22:23:53 by hbombur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ void	make_zoom(t_pix *a, t_pix *b, t_data *data)
 {
 	a->x *= data->zoom;
 	a->y *= data->zoom;
-	a->z *= data->z_scale;
+	a->z *= (data->z_scale * 0.6);
 	b->x *= data->zoom;
 	b->y *= data->zoom;
-	b->z *= data->z_scale;
+	b->z *= (data->z_scale * 0.6);
 }
 
 void	make_shift(t_pix *start, t_pix *end, t_data *data)

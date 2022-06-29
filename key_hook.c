@@ -6,7 +6,7 @@
 /*   By: hbombur <hbombur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 13:53:36 by hbombur           #+#    #+#             */
-/*   Updated: 2022/06/29 18:32:42 by hbombur          ###   ########.fr       */
+/*   Updated: 2022/06/29 22:06:26 by hbombur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ static int	zoom(int key, t_data *data)
 static int	angle(int key, t_data *data)
 {
 	if (key == ANG_COS_UP)
-		data->angle_cos += 0.02;
+		data->angle_cos += 0.01;
 	if (key == ANG_COS_DOWN)
-		data->angle_cos -= 0.02;
+		data->angle_cos -= 0.01;
 	if (key == ANG_SIN_UP)
-		data->angle_sin += 0.02;
+		data->angle_sin += 0.01;
 	if (key == ANG_SIN_DOWN)
-		data->angle_sin -= 0.02;
+		data->angle_sin -= 0.01;
 	return (0);
 }
 
@@ -67,7 +67,9 @@ int	key_hook(int key, t_data *data)
 		angle(key, data);
 	if (key == Z_UP || key == Z_DOWN)
 		z_scale(key, data);
-	if (key == ISO)
+	if (key == ISO_ON)
+		data->flag = 1;
+	if (key == ISO_OFF)
 		data->flag = 0;
 	if (key == RESET)
 		win_init(data);

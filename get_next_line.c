@@ -6,13 +6,13 @@
 /*   By: hbombur <hbombur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 20:08:07 by hbombur           #+#    #+#             */
-/*   Updated: 2022/06/29 19:06:25 by hbombur          ###   ########.fr       */
+/*   Updated: 2022/06/29 21:14:20 by hbombur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-char	*end_line(char *end_line)
+char	*ft_end_line(char *end_line)
 {
 	int		i;
 	int		j;
@@ -40,7 +40,7 @@ char	*end_line(char *end_line)
 	return (line);
 }
 
-char	*fd_reader(int fd, char *end_line)
+char	*read_fd(int fd, char *end_line)
 {
 	char	*buf;
 	int		byte_read;
@@ -67,7 +67,7 @@ char	*fd_reader(int fd, char *end_line)
 
 char	*get_next_line(int fd)
 {
-	static char	*reminder;
+	static char	*end_line;
 	char		*line;
 	int			i;
 
@@ -75,18 +75,18 @@ char	*get_next_line(int fd)
 	i = 0;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	reminder = fd_reader(fd, reminder);
-	if (!reminder)
+	end_line = read_fd(fd, end_line);
+	if (!end_line)
 		return (NULL);
-	if (*reminder)
+	if (*end_line)
 	{
-		while (reminder[i] && reminder[i] != '\n')
+		while (end_line[i] && end_line[i] != '\n')
 			i++;
 		line = malloc(sizeof(char) * (i + 2));
 		if (!line)
 			return (NULL);
-		line = ft_strcpy(line, reminder);
+		line = ft_strcpy(line, end_line);
 	}
-	reminder = end_line(reminder);
+	end_line = ft_end_line(end_line);
 	return (line);
 }

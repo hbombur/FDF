@@ -12,8 +12,6 @@
 
 #include "fdf.h"
 
-#include "fdf.h"
-
 static size_t	ft_words_count(char const *s, char c)
 {
 	size_t	i;

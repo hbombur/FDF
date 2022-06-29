@@ -6,7 +6,7 @@
 /*   By: hbombur <hbombur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/09 19:27:50 by hbombur           #+#    #+#             */
-/*   Updated: 2022/06/29 17:11:55 by hbombur          ###   ########.fr       */
+/*   Updated: 2022/06/29 21:13:31 by hbombur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ size_t	ft_strlen(const char *s);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strcpy(char *dst, const char *src);
-char	*fd_reader(int fd, char *reminder);
+char	*read_fd(int fd, char *end_line);
 char	*get_next_line(int fd);
 char	*ft_reminder(char *reminder);
 

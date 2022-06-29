@@ -6,7 +6,7 @@
 /*   By: hbombur <hbombur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 13:50:12 by hbombur           #+#    #+#             */
-/*   Updated: 2022/06/29 20:13:08 by hbombur          ###   ########.fr       */
+/*   Updated: 2022/06/29 21:48:12 by hbombur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	make_matrix(t_pix *matrix, char *line, int y)
 	while (pix[x])
 	{
 		if (ft_strlen(pix[x]) < 5)
-			set_color(matrix, pix[x]);
+			set_color(&matrix[x], pix[x]);
 		else
 		{
 			color = ft_split(pix[x], ',');
