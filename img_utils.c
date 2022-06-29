@@ -6,13 +6,13 @@
 /*   By: hbombur <hbombur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:24:47 by hbombur           #+#    #+#             */
-/*   Updated: 2022/06/29 15:51:55 by hbombur          ###   ########.fr       */
+/*   Updated: 2022/06/29 20:08:02 by hbombur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	hex_to_dec(char *hex, long long decimal)
+int	hex_to_dec(char *hex, long long dec)
 {
 	long long	base;
 	int			i;
@@ -23,37 +23,37 @@ int	hex_to_dec(char *hex, long long decimal)
 	{
 		if (hex[i] >= '0' && hex[i] <= '9')
 		{
-			decimal += (hex[i] - 48) * base;
+			dec += (hex[i] - 48) * base;
 			base *= 16;
 		}
 		else if (hex[i] >= 'A' && hex[i] <= 'F')
 		{
-			decimal += (hex[i] - 55) * base;
+			dec += (hex[i] - 55) * base;
 			base *= 16;
 		}
 		else if (hex[i] >= 'a' && hex[i] <= 'f')
 		{
-			decimal += (hex[i] - 87) * base;
+			dec += (hex[i] - 87) * base;
 			base *= 16;
 		}
 		i--;
 	}
-	return (decimal);
+	return (dec);
 }
 
-void	isometric(t_pix *start, t_pix *end, t_data *data)
+void	isometric(t_pix *start, t_pix *finish, t_data *data)
 {
 	start->x = (start->x - start->y) * cos(data->angle_cos);
 	start->y = (start->x + start->y) * sin(data->angle_sin) - start->z;
-	end->x = (end->x - end->y) * cos(data->angle_cos);
-	end->y = (end->x + end->y) * sin(data->angle_sin) - end->z;
+	finish->x = (finish->x - finish->y) * cos(data->angle_cos);
+	finish->y = (finish->x + finish->y) * sin(data->angle_sin) - finish->z;
 }
 
 void	make_zoom(t_pix *a, t_pix *b, t_data *data)
 {
 	a->x *= data->zoom;
 	a->y *= data->zoom;
-	a->z *= (data->z_scale);
+	a->z *= data->z_scale;
 	b->x *= data->zoom;
 	b->y *= data->zoom;
 	b->z *= data->z_scale;

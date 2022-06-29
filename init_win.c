@@ -6,7 +6,7 @@
 /*   By: hbombur <hbombur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 16:51:15 by hbombur           #+#    #+#             */
-/*   Updated: 2022/06/29 13:55:42 by hbombur          ###   ########.fr       */
+/*   Updated: 2022/06/29 19:43:53 by hbombur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,15 @@
 
 void	win_init(t_data *data)
 {
-	data->zoom = 30;
-	data->z_scale = 2;
-	data->shift_y = 250;
-	data->shift_x = 900;
 	data->screen_x = WIDTH;
 	data->screen_y = HEIGHT;
+	data->shift_y = 250;
+	data->shift_x = 900;
+	data->zoom = 30;
 	data->angle_cos = 0.8;
 	data->angle_sin = 0.8;
+	data->z_scale = 2;
 	data->flag = 1;
-	data->center_x = found_center_x(data);
-	data->center_y = found_center_y(data);
 }
 
 void	img_init(t_data *data)

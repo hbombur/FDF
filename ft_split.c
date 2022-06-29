@@ -12,80 +12,98 @@
 
 #include "fdf.h"
 
-static size_t	ft_word_count(char *str, char c)
+#include "fdf.h"
+
+static size_t	ft_words_count(char const *s, char c)
 {
 	size_t	i;
-	size_t	count;
+	size_t	words;
+
+	words = 0;
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i++] == c)
+			continue ;
+		words++;
+		while (s[i] != c)
+			if (s[i++] == '\0')
+				return (words);
+	}
+	return (words);
+}
+
+static size_t	ft_word_len(const char *s, char sep)
+{
+	size_t	i;
 
 	i = 0;
-	count = 0;
-	while (str[i] == c && str[i] != '\0')
+	while (s[i] != '\0' && s[i] != sep)
 		i++;
-	while (str[i] != '\0')
+	return (i);
+}
+
+static char	**free_arr(char **arr)
+{
+	size_t	i;
+
+	i = 0;
+	while (arr[i])
+		free(arr[i++]);
+	free (arr);
+	return (NULL);
+}
+
+static char	*ft_substr(const char *s, unsigned int start, size_t len)
+{
+	char	*substr;
+	size_t	i;
+
+	i = 0;
+	if (s == NULL)
+		return (0);
+	if (len > ft_strlen(s))
+		len = ft_strlen(s);
+	substr = (char *) malloc ((len + 1));
+	if (substr == NULL)
+		return (NULL);
+	if (start >= ft_strlen (s))
 	{
-		if (str[i] == c)
-		{
-			count++;
-			i++;
-			while (str[i] == c)
-				i++;
-		}
-		else
-			if (str[i] == '\0')
-				count++;
-			i++;
+		substr[i] = '\0';
+		return (substr);
 	}
-	return (count);
-}
-
-static size_t	ft_pointer(char *str, char c)
-{
-	size_t	j;
-
-	j = 0;
-	while (str[j] != c && str[j] != '\0')
-		j++;
-	return (j);
-}
-
-char	**ft_make_arr(size_t j, char *str, char c, char **arr)
-{
-	size_t	n;
-	size_t	len;
-
-	n = 0;
-	len = 0;
-	while (j > 0)
+	while (len != 0 && s[start] != '\0')
 	{
-		while (*str == c)
-			str++;
-		len = ft_pointer(str, c);
-		arr[n] = ft_substr(str, 0, len);
-		if (arr[n++] == NULL)
-			return (ft_free(arr));
-		while (len--)
-			str++;
-		j--;
+		substr[i++] = s[start++];
+		len--;
 	}
-	arr[n] = NULL;
-	return (arr);
+	substr[i] = '\0';
+	return (substr);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(const char *s, char c)
 {
-	size_t	j;
-	size_t	n;
 	char	**arr;
-	char	*str;
+	size_t	i;
+	size_t	j;
 
-	n = 0;
-	if (!s)
+	i = 0;
+	j = 0;
+	if (s == NULL)
 		return (NULL);
-	str = (char *)s;
-	j = ft_word_count(str, c);
-	arr = (char **)malloc((j + 1) * sizeof(char *));
-	if (!arr)
+	arr = malloc((ft_words_count(s, c) + 1) * sizeof(char *));
+	if (arr == NULL)
 		return (NULL);
-	arr = ft_make_arr(j, str, c, arr);
+	while (s[i] != '\0')
+	{
+		if (s[i++] == c)
+			continue ;
+		--i;
+		arr[j] = ft_substr(s, i, ft_word_len(&s[i], c));
+		if (arr[j++] == NULL)
+			return (free_arr(arr));
+		i += ft_word_len(&s[i], c);
+	}
+	arr[j] = 0;
 	return (arr);
 }

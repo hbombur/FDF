@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbombur <hbombur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 16:54:49 by hbombur           #+#    #+#             */
-/*   Updated: 2022/06/29 13:51:36 by hbombur          ###   ########.fr       */
+/*   Updated: 2022/06/29 19:04:48 by hbombur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,65 +15,62 @@
 int	ft_atoi(const char *str)
 {
 	int	i;
-	int	num;
 	int	min;
+	int	num;
 
-	i = 0;
 	min = 1;
 	num = 0;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+	i = 0;
+	while ((str[i] == ' ') || (str[i] == '\t') || (str[i] == '\n') || (str[i]
+			== '\v') || (str[i] == '\f') || (str[i] == '\r'))
 		i++;
-	if (str[i] == 45)
+	if (str[i] == '-' || str[i] == '+')
 	{
-		min = -1;
+		if (str [i] == '-')
+			min = -min;
 		i++;
 	}
-	else if (str[i] == 43)
-		i++;
-	while (str[i] >= 48 && str[i] <= 57)
+	while (str[i] >= '0' && str[i] <= '9')
 	{
 		num = num * 10;
-		num = num + (str[i] - 48);
+		num = num + (str[i] - '0');
 		i++;
 	}
-	num = num * min;
-	return (num);
+	return (num * min);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t	lenstr;
+	size_t	l_str;
 	size_t	l;
 	char	*dst;
 
 	l = 0;
 	if (s == 0)
 		return (NULL);
-	lenstr = ft_strlen(s);
-	if (len > lenstr - start)
-		len = lenstr - start;
+	l_str = ft_strlen(s);
+	if (len > l_str - start)
+		len = l_str - start;
 	dst = (char *)malloc (len + 1);
 	if (!dst)
 		return (NULL);
-	while (s && l < len && start < lenstr)
+	while (s && l < len && start < l_str)
 		dst[l++] = s[start++];
 	dst[l] = '\0';
 	return (dst);
 }
 
-void	*ft_bzero(void *s, size_t n)
+void	ft_bzero(void *str, size_t n)
 {
-	size_t			i;
-	unsigned char	*c;
+	char	*tmp;
+	size_t	i;
 
-	c = s;
+	if (!n)
+		return ;
+	tmp = str;
 	i = 0;
 	while (i < n)
-	{
-		c[i] = '\0';
-		i++;
-	}
-	return (c);
+		*(tmp + i++) = 0;
 }
 
 char	**ft_free(char **arr)

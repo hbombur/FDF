@@ -6,7 +6,7 @@
 /*   By: hbombur <hbombur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 13:50:12 by hbombur           #+#    #+#             */
-/*   Updated: 2022/06/29 14:04:49 by hbombur          ###   ########.fr       */
+/*   Updated: 2022/06/29 20:13:08 by hbombur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	get_width(char *file)
 	return (width);
 }
 
-void	mem_alloc(t_data *data)
+static void	memory_alloc(t_data *data)
 {
 	int		i;
 
@@ -81,19 +81,19 @@ void	make_matrix(t_pix *matrix, char *line, int y)
 {
 	int			x;
 	long long	i;
-	char		**dots;
+	char		**pix;
 	char		**color;
 
-	dots = ft_split(line, ' ');
+	pix = ft_split(line, ' ');
 	x = 0;
 	i = 0;
-	while (dots[x])
+	while (pix[x])
 	{
-		if (ft_strlen(dots[x]) < 5)
-			set_color(&matrix[x], dots[x]);
+		if (ft_strlen(pix[x]) < 5)
+			set_color(matrix, pix[x]);
 		else
 		{
-			color = ft_split(dots[x], ',');
+			color = ft_split(pix[x], ',');
 			matrix[x].z = ft_atoi(color[0]);
 			matrix[x].color = hex_to_dec(color[1], i);
 			ft_free(color);
@@ -102,7 +102,7 @@ void	make_matrix(t_pix *matrix, char *line, int y)
 		matrix[x].x = x;
 		x++;
 	}
-	ft_free(dots);
+	ft_free(pix);
 }
 
 void	read_file(char *file_name, t_data *data)
@@ -114,7 +114,7 @@ void	read_file(char *file_name, t_data *data)
 
 	data->height = get_heigth(file_name);
 	data->width = get_width(file_name);
-	mem_alloc(data);
+	memory_alloc(data);
 	fd = open(file_name, O_RDONLY);
 	if (fd < 0)
 		ft_perror("File read error!");

@@ -6,7 +6,7 @@
 /*   By: hbombur <hbombur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 13:53:36 by hbombur           #+#    #+#             */
-/*   Updated: 2022/06/29 15:52:05 by hbombur          ###   ########.fr       */
+/*   Updated: 2022/06/29 18:32:42 by hbombur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ static int	zoom(int key, t_data *data)
 
 static int	angle(int key, t_data *data)
 {
-	if (key == ANGLE_COS_UP)
-		data->angle_cos += 0.01;
-	if (key == ANGLE_COS_DOWN)
-		data->angle_cos -= 0.01;
-	if (key == ANGLE_SIN_UP)
-		data->angle_sin += 0.01;
-	if (key == ANGLE_SIN_DOWN)
-		data->angle_sin -= 0.01;
+	if (key == ANG_COS_UP)
+		data->angle_cos += 0.02;
+	if (key == ANG_COS_DOWN)
+		data->angle_cos -= 0.02;
+	if (key == ANG_SIN_UP)
+		data->angle_sin += 0.02;
+	if (key == ANG_SIN_DOWN)
+		data->angle_sin -= 0.02;
 	return (0);
 }
 
@@ -62,17 +62,13 @@ int	key_hook(int key, t_data *data)
 		move(key, data);
 	if (key == ZOOM_UP || key == ZOOM_DOWN)
 		zoom(key, data);
-	if (key == ANGLE_COS_DOWN || key == ANGLE_COS_UP || key == ANGLE_SIN_DOWN \
-												|| key == ANGLE_SIN_UP)
+	if (key == ANG_COS_DOWN || key == ANG_COS_UP || key == ANG_SIN_DOWN \
+												|| key == ANG_SIN_UP)
 		angle(key, data);
 	if (key == Z_UP || key == Z_DOWN)
 		z_scale(key, data);
-	if (key == ISO_1)
+	if (key == ISO)
 		data->flag = 0;
-	if (key == ISO_2)
-		data->flag = 1;
-	if (key == ISO_3)
-		data->flag = 2;
 	if (key == RESET)
 		win_init(data);
 	if (key == ESC)
