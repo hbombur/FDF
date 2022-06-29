@@ -6,74 +6,97 @@
 /*   By: hbombur <hbombur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 14:01:39 by hbombur           #+#    #+#             */
-/*   Updated: 2022/06/19 17:28:43 by hbombur          ###   ########.fr       */
+/*   Updated: 2022/06/29 15:50:50 by hbombur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# include <stdio.h>
-# include <unistd.h>
 # include <stdlib.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <math.h>
 # include <fcntl.h>
-# include <limits.h>
-// # include "./minilibx_macos/mlx.h"
 # include "mlx.h"
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
-# define HEIGHT			1080
+# include "get_next_line.h"
+
 # define WIDTH			1920
+# define HEIGHT			1080
 
+# define UP				126
+# define DOWN			125
+# define LEFT			123
+# define RIGHT			124
+# define ESC			53
+# define ZOOM_UP		24
+# define ZOOM_DOWN		27
+# define ANGLE_COS_DOWN	2
+# define ANGLE_COS_UP	0
+# define ANGLE_SIN_DOWN	13
+# define ANGLE_SIN_UP	1
+# define Z_UP			14
+# define Z_DOWN			12
+# define ISO_1			18
+# define ISO_2			19
+# define ISO_3			20
+# define RESET			48
 
-typedef struct s_coor
+typedef struct s_pix
 {
-	int	x;
-	int	y;
-	int	z;
-	int	color;
-}	t_coor;
+	float	x;
+	float	y;
+	int		z;
+	int		color;
+}	t_pix;
 
-typedef struct s_struct
-{
+typedef struct s_data {
 	int		width;
-	
 	int		height;
-	int		**matrix;
-	int		screen_x;
-	int		screen_y;
+	t_pix	**matrix;
 	int		zoom;
-	int		scale;
-	int		shift_y;
-	int		shift_x;
+	int		color;
+	double	angle_cos;
+	double	angle_sin;
+	double	z_scale;
+	int		flag;
 	int		center_x;
 	int		center_y;
-	void	*img;
+	int		shift_x;
+	int		shift_y;
+
 	void	*mlx_ptr;
 	void	*win_ptr;
-}			fdf;
+	int		screen_x;
+	int		screen_y;
 
-void	init_windows(fdf *data);
-void    init_win(fdf *data);
-int		read_file(char *file_name, fdf *data);
-int		found_center_x(fdf *data);
-int		found_center_y(fdf *data);
-void	found_center(fdf *data);
-int		get_params(fdf *data, char *file_name);
-void	ft_perror(char *str);
-void	make_line_matrix(fdf *data, char **map_line, int y);
-void	make_matrix(char *file_name, fdf *data);
-int		ft_atoi(const char *str);
-size_t	ft_strlen(const char *c);
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_data;
+
+void	win_init(t_data *data);
+void	make_matrix(t_pix *matrix, char *line, int y);
+void	read_file(char *file, t_data *data);
+void	create_line(t_pix start, t_pix end, t_data *data);
+void	print_menu(t_data *data);
+void	img_init(t_data *data);
+void	draw(t_data *data, t_pix **matrix);
+void	set_color(t_pix *matrix, char *z);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	isometric(t_pix *start, t_pix *end, t_data *data);
+int		found_center_x(t_data *data);
+int		found_center_y(t_data *data);
+int		key_hook(int key, t_data *data);
+int		hex_to_dec(char *hex, long long decimal);
+void	make_zoom(t_pix *a, t_pix *b, t_data *data);
+void	make_shift(t_pix *start, t_pix *end, t_data *data);
+char	**ft_free(char **arr);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*get_next_line(int fd);
 char	**ft_split(char const *s, char c);
-char	*ft_strchr(const char *s, int c);
-char	*ft_strdup(const char *s1);
-char	*ft_strjoin(char const *s1, char const *s2);
-size_t	ft_word_count(char *str, char c);
-
-
-
+int		ft_atoi(const char *str);
+int		ft_perror(char *error);
+int		my_exit_program(t_data *data);
 #endif

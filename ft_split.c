@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-size_t	ft_word_count(char *str, char c)
+static size_t	ft_word_count(char *str, char c)
 {
 	size_t	i;
 	size_t	count;
@@ -31,7 +31,7 @@ size_t	ft_word_count(char *str, char c)
 				i++;
 		}
 		else
-			if (str[i] == '\0')// && str[i - 1] == c)
+			if (str[i] == '\0')
 				count++;
 			i++;
 	}
@@ -48,18 +48,7 @@ static size_t	ft_pointer(char *str, char c)
 	return (j);
 }
 
-static char	**ft_free(char **arr)
-{
-	size_t	n;
-
-	n = 0;
-	while (arr[n] != NULL)
-		free(arr[n++]);
-	free(arr);
-	return (NULL);
-}
-
-static char	**ft_make_arr(size_t j, char *str, char c, char **arr)
+char	**ft_make_arr(size_t j, char *str, char c, char **arr)
 {
 	size_t	n;
 	size_t	len;

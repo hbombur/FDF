@@ -6,47 +6,39 @@
 /*   By: hbombur <hbombur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 14:18:26 by hbombur           #+#    #+#             */
-/*   Updated: 2022/06/19 18:08:50 by hbombur          ###   ########.fr       */
+/*   Updated: 2022/06/29 15:21:17 by hbombur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-
-void	ft_perror(char *str)
+int	my_exit_program(t_data *data)
 {
-	perror(str);
-	exit(0);
+	mlx_destroy_image(data->mlx_ptr, data->img);
+	exit(1);
 }
 
-// Главная функция
 int	main(int argc, char **argv)
 {
-	fdf		*data;
-	int		x;
-	int		y;
+	t_data	*data;
 
 	if (argc == 2)
 	{
-		data = (fdf *)malloc(sizeof(fdf));
+		data = malloc(sizeof(t_data));
 		if (!data)
 			ft_perror("Memory not allocated");
 		read_file(argv[1], data);
-		init_windows(data);
-		init_win(data);
-		y = 0;
-		while (y != data->height)
-		{
-			x = 0;
-			while (x != data->width)
-			{
-				printf("%d", data->matrix[y][x]);
-				x++;
-			}
-			y++;
-			printf("\n");
-		}
+		win_init(data);
+		img_init(data);
+		draw(data, data->matrix);
+		mlx_hook(data->win_ptr, 2, 0, key_hook, data);
+		mlx_hook(data->win_ptr, 17, 0, my_exit_program, data);
 		mlx_loop(data->mlx_ptr);
+		free(data);
 	}
+	else if (argc == 1)
+		ft_perror("Not enough arguments!");
+	else
+		ft_perror("Wrong number of arguments!");
 	return (0);
 }

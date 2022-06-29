@@ -6,7 +6,7 @@
 /*   By: hbombur <hbombur@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 16:54:49 by hbombur           #+#    #+#             */
-/*   Updated: 2022/06/13 17:12:19 by hbombur          ###   ########.fr       */
+/*   Updated: 2022/06/29 13:51:36 by hbombur          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,36 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		dst[l++] = s[start++];
 	dst[l] = '\0';
 	return (dst);
+}
+
+void	*ft_bzero(void *s, size_t n)
+{
+	size_t			i;
+	unsigned char	*c;
+
+	c = s;
+	i = 0;
+	while (i < n)
+	{
+		c[i] = '\0';
+		i++;
+	}
+	return (c);
+}
+
+char	**ft_free(char **arr)
+{
+	size_t	n;
+
+	n = 0;
+	while (arr[n] != NULL)
+		free(arr[n++]);
+	free(arr);
+	return (NULL);
+}
+
+int	ft_perror(char *error)
+{
+	perror(error);
+	exit(0);
 }
